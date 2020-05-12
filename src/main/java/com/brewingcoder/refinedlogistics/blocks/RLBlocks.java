@@ -2,7 +2,7 @@ package com.brewingcoder.refinedlogistics.blocks;
 
 import com.brewingcoder.refinedlogistics.item.ItemGroups;
 import com.brewingcoder.refinedlogistics.lib.BlockProperties;
-import com.brewingcoder.refinedlogistics.lib.IBlock;
+import com.brewingcoder.refinedlogistics.lib.IRLBlock;
 import com.brewingcoder.refinedlogistics.lib.OreBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -13,7 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Blocks {
+public class RLBlocks {
     public static final List<BlockItem> BLOCK_ITEMS  = new ArrayList<>();
     public static final List<Block> BLOCKS = new ArrayList<>();
 
@@ -22,17 +22,17 @@ public class Blocks {
     public static final Block STICKY_ORE_INFESTED_TWO = register("sticky_ore_infested_two", new OreBlockBase(BlockProperties.metal(2.0f,20.0f)));
 
     static <T extends net.minecraft.block.Block> T register(final String name, final T block) {
-        final BlockItem itemBlock = ((IBlock) block).getBlockItem(new Item.Properties(), ItemGroups.MAIN);
+        final BlockItem itemBlock = ((IRLBlock) block).getBlockItem(new Item.Properties(), ItemGroups.MAIN);
         itemBlock.setRegistryName(name);
         block.setRegistryName(name);
-        Blocks.BLOCK_ITEMS.add(itemBlock);
-        Blocks.BLOCKS.add(block);
+        RLBlocks.BLOCK_ITEMS.add(itemBlock);
+        RLBlocks.BLOCKS.add(block);
         return block;
     }
 
     @SubscribeEvent
     public static void onRegistry(final RegistryEvent.Register<Block> event) {
-        Blocks.BLOCKS.forEach(block -> event.getRegistry().register(block));
+        RLBlocks.BLOCKS.forEach(block -> event.getRegistry().register(block));
     }
 
 }

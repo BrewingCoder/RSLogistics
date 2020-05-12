@@ -13,7 +13,7 @@ import net.minecraftforge.common.extensions.IForgeBlock;
 import javax.annotation.Nullable;
 
 
-public interface IBlock<E extends IVariant> extends IForgeBlock {
+public interface IRLBlock<E extends IVariant> extends IForgeBlock {
     @SuppressWarnings("unchecked")
     default BlockItemBase getBlockItem(Item.Properties properties, @Nullable ItemGroup group) {
         return new BlockItemBase(getBlock(), properties, group);

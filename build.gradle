@@ -22,7 +22,7 @@ repositories {
 
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
 version = '0.1.0'
@@ -33,6 +33,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: 'snapshot', version: '20200225-1.15.1'
+    //mappings channel: 'snapshot', version: '20200119-1.14.3'
     runs {
         client {
             workingDirectory project.file('run')
@@ -87,10 +88,12 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.1.77'
-    compileOnly fg.deobf("com.raoulvdberge:refinedstorage:1.8+2")
-    runtimeOnly fg.deobf("com.raoulvdberge:refinedstorage:1.8+2")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.15.1:6.0.0.1")
+    minecraft 'net.minecraftforge:forge:1.15.2-31.1.39'
+//    compileOnly fg.deobf("com.raoulvdberge:refinedstorage:1.8+3")
+   // runtimeOnly fg.deobf("com.raoulvdberge:refinedstorage:1.8+4")
+    compile files("de/refinedstorage-1.8.4+30-deobf.jar")
+    compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

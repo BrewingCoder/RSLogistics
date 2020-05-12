@@ -11,12 +11,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class BlockItemBase<E extends IVariant, T extends Block & IBlock<E>> extends BlockItem implements IItemBase {
+public class BlockItemBase<E extends IVariant, T extends Block & IRLBlock<E>> extends BlockItem implements IItemBase {
     private final T block;
 
     @SuppressWarnings("ConstantConditions")
     public BlockItemBase(T block, Properties properties, @Nullable ItemGroup group) {
-        super(block, properties.group(block instanceof IBlock && block.hideGroup() ? null : group)
+        super(block, properties.group(block instanceof IRLBlock && block.hideGroup() ? null : group)
                 .setISTER(() -> TEItemRenderer::new).maxStackSize(block.stackSize()));
         this.block = block;
     }

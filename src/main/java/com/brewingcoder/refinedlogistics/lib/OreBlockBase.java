@@ -5,7 +5,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
-public class OreBlockBase<E extends IVariant> extends OreBlock implements IBlock<E> {
+public class OreBlockBase<E extends IVariant> extends OreBlock implements IRLBlock<E> {
     private int minXpDrop;
     private int maxXpDrop;
 

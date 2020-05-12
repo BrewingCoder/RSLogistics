@@ -1,5 +1,6 @@
 package com.brewingcoder.refinedlogistics;
 
+import com.brewingcoder.refinedlogistics.world.RLOreGen;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,7 +21,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.stream.Collectors;
 
-// The value here should match an entry in the META-INF/mods.toml file
+import static com.brewingcoder.refinedlogistics.lib.ForgeEventRegistrar.addModListener;
+
 @Mod(RefinedLogistics.MODID)
 public class RefinedLogistics
 {
@@ -29,44 +31,49 @@ public class RefinedLogistics
 
 
     public RefinedLogistics() {
+
+        addModListener(this::commonSetup);
+        addModListener(this::clientSetup);
+
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER,ConfigHandler.SERVER_CONFIG);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-        MinecraftForge.EVENT_BUS.register(this);
+
+
+//        MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
+    void commonSetup(final FMLCommonSetupEvent event)
     {
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        RLOreGen.register();
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+    void clientSetup(final FMLClientSetupEvent event) {
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
-        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
-    }
 
-    private void processIMC(final InterModProcessEvent event)
-    {
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
-    }
-    @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
-        LOGGER.info("HELLO from server starting");
-    }
-    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            LOGGER.info("HELLO from Register Block");
-        }
-    }
+
+
+
+//    private void enqueueIMC(final InterModEnqueueEvent event)
+//    {
+//        //InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+//    }
+//
+//    private void processIMC(final InterModProcessEvent event)
+//    {
+////        LOGGER.info("Got IMC {}", event.getIMCStream().
+////                map(m->m.getMessageSupplier().get()).
+////                collect(Collectors.toList()));
+//    }
+//    @SubscribeEvent
+//    public void onServerStarting(FMLServerStartingEvent event) {
+////        LOGGER.info("HELLO from server starting");
+//    }
+//    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+//    public static class RegistryEvents {
+//        @SubscribeEvent
+//        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+//            LOGGER.info("HELLO from Register Block");
+//        }
+//    }
 }

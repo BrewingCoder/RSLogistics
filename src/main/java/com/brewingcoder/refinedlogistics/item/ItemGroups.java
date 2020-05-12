@@ -1,7 +1,7 @@
 package com.brewingcoder.refinedlogistics.item;
 
 import com.brewingcoder.refinedlogistics.RefinedLogistics;
-import com.brewingcoder.refinedlogistics.blocks.Blocks;
+import com.brewingcoder.refinedlogistics.blocks.RLBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -12,7 +12,7 @@ public class ItemGroups {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack createIcon() {
-            return new ItemStack(Blocks.STICKY_ORE);
+            return new ItemStack(RLBlocks.STICKY_ORE);
         }
     };
 }
